@@ -1,0 +1,154 @@
+/* ===== Global ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #0f1115;
+  color: #ffffff;
+}
+
+/* ===== Header / Navbar ===== */
+.header {
+  background: #111318;
+  border-bottom: 1px solid #1f222a;
+  padding: 14px 24px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+nav a {
+  color: #dcdcdc;
+  margin-left: 18px;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+nav a:hover {
+  color: #ffffff;
+}
+
+/* ===== Page Container ===== */
+.container {
+  padding: 30px;
+}
+
+/* ===== Cards ===== */
+.card {
+  background: #151922;
+  border: 1px solid #222631;
+  border-radius: 10px;
+  padding: 18px;
+  width: 280px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+/* ===== Grid (Products / Recommendations) ===== */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+/* ===== Forms ===== */
+label {
+  font-size: 14px;
+  color: #cccccc;
+}
+
+input {
+  width: 100%;
+  background: #0f1115;
+  border: 1px solid #2a2f3a;
+  color: #ffffff;
+  padding: 8px 10px;
+  margin-top: 6px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #4f8cff;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  background: linear-gradient(135deg, #4f8cff, #2563eb);
+  color: #ffffff;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #4f8cff;
+  color: #4f8cff;
+}
+
+.btn.ghost:hover {
+  background: rgba(79, 140, 255, 0.12);
+}
+
+.small {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+/* ===== Error ===== */
+.error {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* ===== Headings ===== */
+h2 {
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+p {
+  color: #cfcfcf;
+  font-size: 14px;
+}
+
+
+
+.center-page {
+  min-height: calc(100vh - 70px); /* header height minus */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 60px;
+}
