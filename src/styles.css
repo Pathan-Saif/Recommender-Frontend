@@ -152,3 +152,10 @@ p {
   align-items: flex-start;
   padding-top: 60px;
 }
+
+
+input, textarea {
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 8px;
+}
