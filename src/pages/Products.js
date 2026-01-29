@@ -74,7 +74,7 @@ export default function Products({ user }) {
     };
 
     try {
-      // console.log("SENDING PAYLOAD:", payload);
+      console.log("SENDING PAYLOAD:", payload);
       await recordInteraction(payload);
       alert("Interaction recorded (view)");
     } catch (err) {
