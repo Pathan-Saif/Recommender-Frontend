@@ -26,7 +26,7 @@ export async function createItem(item) {
   return api.post("/items", item);
 }
 export async function recordInteraction(interaction) {
-  return api.post("/activities", interaction);
+  return api.post("/recommend/interactions", interaction);
 }
 export async function getRecommendations(userId, k=10) {
   // backend endpoint: /api/recommend/{userId}?k=10
