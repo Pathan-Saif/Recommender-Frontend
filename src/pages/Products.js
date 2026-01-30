@@ -5,7 +5,7 @@ export default function Products({ user }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // create form state
+  // Create form state
   const [externalId, setExternalId] = useState("");
   const [title, setTitle] = useState("");
   const [metadata, setMetadata] = useState("");
@@ -15,16 +15,10 @@ export default function Products({ user }) {
     loadItems();
   }, []);
 
-  useEffect(() => {
-    console.log("ITEMS STATE:", items);
-  }, [items]);
-
   async function loadItems() {
     setLoading(true);
     try {
       const res = await listItems();
-      console.log("RAW RESPONSE:", res);
-
       if (Array.isArray(res.data)) {
         setItems(res.data);
       } else if (Array.isArray(res.data?.data)) {
@@ -40,12 +34,8 @@ export default function Products({ user }) {
     }
   }
 
-
-  /* ------------------ CREATE ITEM ------------------ */
   async function handleCreate() {
-    if (!externalId || !title) {
-      return alert("externalId and title required");
-    }
+    if (!externalId || !title) return alert("External ID and title required");
 
     setCreating(true);
     try {
@@ -57,36 +47,23 @@ export default function Products({ user }) {
       alert("Item created successfully");
     } catch (err) {
       console.error(err);
-      alert("Item create failed (check login / role)");
+      alert("Item creation failed");
     } finally {
       setCreating(false);
     }
   }
 
-  /* ------------------ RECORD INTERACTION ------------------ */
   async function viewItem(item) {
     const payload = {
-      userId:
-        user?.userId ||
-        user?.id ||
-        Number(localStorage.getItem("userId")) ||
-        1,
-
-      // normalize item id (NO spaces)
-      externalItemId: (
-        item.externalId ||
-        item.external_id ||
-        item.title
-      )
+      userId: user?.userId || user?.id || Number(localStorage.getItem("userId")) || 1,
+      externalItemId: (item.externalId || item.external_id || item.title)
         .toString()
         .trim()
         .replace(/\s+/g, "_"),
-
-      eventType: "VIEW"
+      eventType: "VIEW",
     };
 
     try {
-      console.log("SENDING PAYLOAD:", payload);
       await recordInteraction(payload);
       alert("Interaction recorded (view)");
     } catch (err) {
@@ -95,35 +72,32 @@ export default function Products({ user }) {
     }
   }
 
-
   if (loading) return <p>Loading items...</p>;
-  console.log("RENDER ITEMS:", items, Array.isArray(items), items.length);
-
 
   return (
-    <div>
+    <div className="container">
       <h2>Products</h2>
 
-      {/* -------- CREATE ITEM -------- */}
+      {/* Create Item Form */}
       <div className="card" style={{ marginBottom: 20 }}>
         <h3>Create Item</h3>
 
         <input
           placeholder="External ID (e.g. product_1)"
           value={externalId}
-          onChange={e => setExternalId(e.target.value)}
+          onChange={(e) => setExternalId(e.target.value)}
         />
 
         <input
           placeholder="Title"
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
 
         <textarea
           placeholder="Metadata (optional)"
           value={metadata}
-          onChange={e => setMetadata(e.target.value)}
+          onChange={(e) => setMetadata(e.target.value)}
         />
 
         <button className="btn" onClick={handleCreate} disabled={creating}>
@@ -131,43 +105,22 @@ export default function Products({ user }) {
         </button>
       </div>
 
-      {/* -------- ITEM LIST -------- */}
-      <div className="grid">
-        <div className="card">
-          <h3>TEST ITEM</h3>
-          <button className="btn">View / Record Interaction</button>
+      {/* Item List */}
+      {items.length === 0 ? (
+        <p>No items yet</p>
+      ) : (
+        <div className="grid">
+          {items.map((it) => (
+            <div key={it.externalId || it.external_id || it.id} className="card">
+              <h3>{it.title}</h3>
+              <p>{it.metadata ? JSON.stringify(it.metadata).slice(0, 80) : "No description"}</p>
+              <button className="btn" onClick={() => viewItem(it)}>
+                View / Record Interaction
+              </button>
+            </div>
+          ))}
         </div>
-      </div>
-
-      <div
-        className="grid"
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "18px",
-          minHeight: "200px",
-          border: "2px solid red",
-          padding: "10px"
-        }}
-      >
-        <div
-          className="card"
-          style={{ border: "2px solid blue", padding: "10px", minHeight: "100px" }}
-        >
-          <h3>TEST ITEM</h3>
-          <button
-            style={{
-              padding: "10px",
-              background: "green",
-              color: "white",
-              display: "inline-block"
-            }}
-          >
-            View / Record Interaction
-          </button>
-        </div>
-      </div>
-
+      )}
     </div>
   );
 }
