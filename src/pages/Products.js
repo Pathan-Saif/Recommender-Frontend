@@ -139,32 +139,35 @@ export default function Products({ user }) {
         </div>
       </div>
 
-      <div className="grid">
-        {items.length === 0 ? (
-          <p>No items yet</p>
-        ) : (
-          items.map(it => (
-            <div
-              key={it.externalId || it.external_id || it.id}
-              className="card"
-            >
-              <h3>{it.title}</h3>
-              <p>
-                {it.metadata
-                  ? JSON.stringify(it.metadata).slice(0, 80)
-                  : "No description"}
-              </p>
-
-              {(it.externalId || it.id) && (
-                <button className="btn" onClick={() => viewItem(it)}>
-                  View / Record Interaction
-                </button>
-              )}
-
-            </div>
-          ))
-        )}
+      <div
+        className="grid"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "18px",
+          minHeight: "200px",
+          border: "2px solid red",
+          padding: "10px"
+        }}
+      >
+        <div
+          className="card"
+          style={{ border: "2px solid blue", padding: "10px", minHeight: "100px" }}
+        >
+          <h3>TEST ITEM</h3>
+          <button
+            style={{
+              padding: "10px",
+              background: "green",
+              color: "white",
+              display: "inline-block"
+            }}
+          >
+            View / Record Interaction
+          </button>
+        </div>
       </div>
+
     </div>
   );
 }
