@@ -23,11 +23,15 @@ export default function Products({ user }) {
     setLoading(true);
     try {
       const res = await listItems();
-      const data = Array.isArray(res.data)
-        ? res.data
-        : res.data?.data || [];
+      console.log("RAW RESPONSE:", res);
 
-      setItems(Array.isArray(data) ? data : []);
+      if (Array.isArray(res.data)) {
+        setItems(res.data);
+      } else if (Array.isArray(res.data?.data)) {
+        setItems(res.data.data);
+      } else {
+        setItems([]);
+      }
     } catch (err) {
       console.error(err);
       setItems([]);
@@ -35,6 +39,7 @@ export default function Products({ user }) {
       setLoading(false);
     }
   }
+
 
   /* ------------------ CREATE ITEM ------------------ */
   async function handleCreate() {
@@ -92,6 +97,8 @@ export default function Products({ user }) {
 
 
   if (loading) return <p>Loading items...</p>;
+  console.log("RENDER ITEMS:", items, Array.isArray(items), items.length);
+
 
   return (
     <div>
@@ -125,6 +132,13 @@ export default function Products({ user }) {
       </div>
 
       {/* -------- ITEM LIST -------- */}
+      <div className="grid">
+        <div className="card">
+          <h3>TEST ITEM</h3>
+          <button className="btn">View / Record Interaction</button>
+        </div>
+      </div>
+
       <div className="grid">
         {items.length === 0 ? (
           <p>No items yet</p>
