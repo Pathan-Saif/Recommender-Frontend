@@ -15,11 +15,18 @@ export default function Products({ user }) {
     loadItems();
   }, []);
 
+  useEffect(() => {
+    console.log("ITEMS STATE:", items);
+  }, [items]);
+
   async function loadItems() {
     setLoading(true);
     try {
       const res = await listItems();
-      const data = res.data?.data || res.data;
+      const data = Array.isArray(res.data)
+        ? res.data
+        : res.data?.data || [];
+
       setItems(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error(err);
