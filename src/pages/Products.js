@@ -134,12 +134,12 @@ export default function Products({ user }) {
                   : "No description"}
               </p>
 
-              <button
-                className="btn"
-                onClick={() => viewItem(it)}
-              >
-                View / Record Interaction
-              </button>
+              {(it.externalId || it.id) && (
+                <button className="btn" onClick={() => viewItem(it)}>
+                  View / Record Interaction
+                </button>
+              )}
+
             </div>
           ))
         )}
